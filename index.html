@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tích các số chia hết cho 7</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef3fb;
+            display: flex;
+            justify-content: center;
+            padding-top: 60px;
+        }
+        .box {
+            background: #fff;
+            width: 420px;
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+        }
+        h2 {
+            text-align: center;
+            color: #0d6efd;
+            margin-top: 0;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 18px;
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            background: #0d6efd;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0b5ed7;
+        }
+        #ketQua {
+            margin-top: 20px;
+            padding: 12px;
+            background: #f4f6f8;
+            border-radius: 6px;
+            line-height: 1.6;
+            overflow-wrap: anywhere; /* chỉ ngắt dòng khi số quá dài */
+        }
+        .footer {
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Tích các số chia hết cho 7</h2>
+
+        <form onsubmit="handleSubmit(event)">
+            <label for="soDau">Số đầu:</label>
+            <input type="number" id="soDau" placeholder="Ví dụ: 1" required>
+
+            <label for="soCuoi">Số cuối:</label>
+            <input type="number" id="soCuoi" placeholder="Ví dụ: 30" required>
+
+            <button type="submit">Tính tích</button>
+        </form>
+
+        <div id="ketQua">Kết quả sẽ hiện ở đây</div>
+
+        <p class="footer">Nguyễn Hoà Ngọc Nhiên - MSSV: 231A010265</p>
+    </div>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault(); // không tải lại trang
+
+            let a = parseInt(document.getElementById("soDau").value);
+            let b = parseInt(document.getElementById("soCuoi").value);
+
+            // Nếu nhập số đầu lớn hơn số cuối thì đổi chỗ
+            if (a > b) {
+                let tam = a;
+                a = b;
+                b = tam;
+            }
+
+            let tich = 1n;     // dùng BigInt để tích lớn vẫn chính xác
+            let danhSach = []; // các số chia hết cho 7
+
+            for (let i = a; i <= b; i++) {
+                if (i % 7 === 0) {
+                    tich = tich * BigInt(i);
+                    danhSach.push(i);
+                }
+            }
+
+            console.log(danhSach, tich);
+
+            if (danhSach.length === 0) {
+                document.getElementById("ketQua").innerHTML =
+                    "Không có số nào chia hết cho 7 trong khoảng [" + a + ", " + b + "]";
+            } else {
+                document.getElementById("ketQua").innerHTML =
+                    "Các số chia hết cho 7: " + danhSach.join(", ") +
+                    "<br>Tích = <b>" + tich + "</b>";
+            }
+        }
+    </script>
+</body>
+</html>
